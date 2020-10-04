@@ -1,0 +1,4 @@
+[build]
+  command = "npm run build && next export"
+  publish = "out"
+  functions = "api"
