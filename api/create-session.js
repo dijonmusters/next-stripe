@@ -1,8 +1,6 @@
 const products = require('./products.json')
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
-const domain = 'http://localhost:8888';
-
 exports.handler = async (event, context) => {
   const { cart } = JSON.parse(event.body)
   const lineItems = cart.map(item => {
@@ -24,8 +22,8 @@ exports.handler = async (event, context) => {
     payment_method_types: ['card'],
     line_items: lineItems,
     mode: 'payment',
-    success_url: `${domain}/successful-payment`,
-    cancel_url: `${domain}/cancel-payment`,
+    success_url: `${process.env.URL}/successful-payment`,
+    cancel_url: `${process.env.URL}/cancel-payment`,
   });
 
   return {

@@ -1,7 +1,10 @@
+import fs from 'fs'
 import axios from 'axios'
 import Link from 'next/link'
 import { loadStripe } from '@stripe/stripe-js';
 import { useCart } from '../context/Cart'
+
+const stripePublishKey = 'pk_test_51HY0jlFCLZr6OgzIv02kEpmGNyDUq1VRKhYJGbC17JxfBJPLupFOyqhnvXPy5WzSUPt13OpxR3rGAa3D8yXC8COG00HrTVJrOJ'
 
 const Checkout = ({ products }) => {
   const { cart, removeItemFromCart } = useCart()
@@ -11,7 +14,7 @@ const Checkout = ({ products }) => {
   const calculateTotal = () => cart.reduce((acc, product) => acc += getProductPrice(product.id, product.qty), 0)
 
   const handleStripeCharge = async () => {
-    const stripe = await loadStripe(process.env.STRIPE_PUBLISH_KEY);
+    const stripe = await loadStripe(stripePublishKey);
     const { data } = await axios.post('/.netlify/functions/create-session', { cart })
     await stripe.redirectToCheckout({ sessionId: data.id })
   }
@@ -34,12 +37,12 @@ const Checkout = ({ products }) => {
   )
 }
 
-export const getStaticProps = async () => {
-  const { data } = await axios.get('http://localhost:8888/.netlify/functions/products')
+export const getStaticProps = () => {
+  const products = JSON.parse(fs.readFileSync('api/products.json'))
 
   return {
     props: {
-      products: data
+      products
     }
   }
 }
