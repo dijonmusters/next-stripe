@@ -2,7 +2,7 @@ import fs from 'fs'
 import Products from '../components/Products'
 import CheckoutButton from '../components/CheckoutButton'
 
-const Home = ({ products }) => console.log(process.env) ||  (
+const Home = ({ products }) => (
   <>
     <Products products={products} />
     <CheckoutButton />
@@ -10,7 +10,7 @@ const Home = ({ products }) => console.log(process.env) ||  (
 )
 
 export const getStaticProps = () => {
-  const products = JSON.parse(fs.readFileSync('api/products.json'))
+  const products = JSON.parse(fs.readFileSync('content/products.json'))
 
   return {
     props: {

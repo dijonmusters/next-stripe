@@ -38,7 +38,7 @@ const Checkout = ({ products }) => {
 }
 
 export const getStaticProps = () => {
-  const products = JSON.parse(fs.readFileSync('api/products.json'))
+  const products = JSON.parse(fs.readFileSync('content/products.json'))
 
   return {
     props: {

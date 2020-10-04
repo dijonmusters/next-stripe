@@ -1,4 +1,4 @@
-const products = require('./products.json')
+const products = require('../content/products.json')
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 exports.handler = async (event, context) => {
