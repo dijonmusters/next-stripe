@@ -1,4 +1,4 @@
-import fs from 'fs'
+// import fs from 'fs'
 import axios from 'axios'
 import Link from 'next/link'
 import { loadStripe } from '@stripe/stripe-js';
@@ -38,11 +38,11 @@ const Checkout = ({ products }) => {
 }
 
 export const getStaticProps = () => {
-  const products = JSON.parse(fs.readFileSync('content/products.json'))
+  // const products = JSON.parse(fs.readFileSync('content/products.json'))
 
   return {
     props: {
-      products
+      products: []
     }
   }
 }
